@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BlankPage;
 use App\Http\Controllers\CustomerController;
@@ -67,8 +68,15 @@ Route::post('/customer-delete-data', [CustomerController::class, 'destroy'])->na
 // Data Barang Masuk
 Route::get('/barang_masuk', [BarangMasukController::class, 'index'])->name('barang_masuk')->middleware(['cekrole:admin']);
 Route::post('/barang_masuk-insert-data', [BarangMasukController::class, 'insert_data'])->name('barang_masuk.insert.data')->middleware(['cekrole:admin']);
-// Route::post('/barang_masuk-edit-data', [BarangMasukController::class, 'edit'])->name('barang_masuk.edit.data')->middleware(['cekrole:admin']);
-// Route::post('/barang_masuk-update-data', [BarangMasukController::class, 'update'])->name('barang_masuk.update.data')->middleware(['cekrole:admin']);
 Route::post('/barang_masuk-delete-data', [BarangMasukController::class, 'destroy'])->name('barang_masuk.delete.data')->middleware(['cekrole:admin']);
 Route::post('/topup-user-card-select', [BarangMasukController::class, 'getUserCard'])->name('topup.usercard.select')->middleware(['cekrole:admin']);
 Route::post('/produk-user-card-select', [BarangMasukController::class, 'getProduk'])->name('produk.usercard.select')->middleware(['cekrole:admin']);
+
+// Data Barang Keluar
+Route::get('/barang_keluar', [BarangKeluarController::class, 'index'])->name('barang_keluar')->middleware(['cekrole:admin']);
+Route::post('/barang_keluar-insert-data', [BarangKeluarController::class, 'insert_data'])->name('barang_keluar.insert.data')->middleware(['cekrole:admin']);
+Route::post('/barang_keluar-delete-data', [BarangKeluarController::class, 'destroy'])->name('barang_keluar.delete.data')->middleware(['cekrole:admin']);
+Route::post('/barang_keluarku-user-card-select', [BarangKeluarController::class, 'getUserCard'])->name('barang_keluarku.usercard.select')->middleware(['cekrole:admin']);
+Route::post('/barang_keluar-user-card-select', [BarangKeluarController::class, 'getProduk'])->name('barang_keluar.usercard.select')->middleware(['cekrole:admin']);
+Route::post('/cust-user-card-select', [BarangKeluarController::class, 'getCust'])->name('cust.usercard.select')->middleware(['cekrole:admin']);
+Route::post('/custku-user-card-select', [BarangKeluarController::class, 'getCustku'])->name('custku.usercard.select')->middleware(['cekrole:admin']);

@@ -10,6 +10,8 @@ class BarangKeluar extends Model
     use HasFactory;
     protected $fillable = [
         'jumlah_barang_keluar',
+        'tanggal_keluar',
         'id_produk',
+        'id_cust',
     ];
 }

@@ -61,6 +61,10 @@
                     <ion-icon name="pricetags-sharp"></ion-icon>Transaksi Barang Masuk
                     </a>
                 </li>
+                <li> <a href="{{ route('barang_keluar') }}">
+                    <ion-icon name="pricetags-sharp"></ion-icon>Transaksi Barang Keluar
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>

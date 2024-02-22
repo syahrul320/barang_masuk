@@ -2,32 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangMasuk;
+use App\Models\BarangKeluar;
+use App\Models\Customer;
 use App\Models\Produk;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
 
-class BarangMasukController extends Controller
+class BarangKeluarController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = BarangMasuk::join('produks', 'barang_masuks.id_produk', 'produks.id');
+            $data = BarangKeluar::join('produks', 'barang_keluars.id_produk', 'produks.id')->join('customers', 'barang_keluars.id_cust', 'customers.id');
 
             if ($request->get('id_produk') != "") {
                 $data = $data->where('produks.id', $request->get('id_produk'));
+            }
+            
+            if ($request->get('custku') != "") {
+                $data = $data->where('customers.id', $request->get('custku'));
             }
 
             if ($request->get('start_date') != "") {
 
                 $from = Carbon::createFromFormat('Y-m-d', $request->get('start_date'))->startOfDay();
                 $to = Carbon::createFromFormat('Y-m-d', $request->get('end_date'))->endOfDay();
-                $data =  $data->whereDate('tanggal_masuk', '>=', $from)
-                    ->whereDate('tanggal_masuk', '<=', $to);
+                $data =  $data->whereDate('tanggal_keluar', '>=', $from)
+                    ->whereDate('tanggal_keluar', '<=', $to);
             }
-            return DataTables::of($data->select(['produks.nama_barang', 'barang_masuks.*'])->latest())->addColumn('actions', function ($row) {
+            return DataTables::of($data->select(['produks.nama_barang', 'customers.nama_customer', 'barang_keluars.*'])->latest())->addColumn('actions', function ($row) {
                 $button = '&nbsp;&nbsp;';
                 $button .= '<a href="javascript:void(0)" onclick= destroy("' . encrypt($row->id) . '") ><span class="badge bg-warning"> Delete</span></a>';
 
@@ -42,7 +47,7 @@ class BarangMasukController extends Controller
                 ->rawColumns(['actions'])
                 ->make(true);
         }
-        return view('barang_masuk.index');
+        return view('barang_keluar.index');
     }
 
     public function getUserCard(Request $request)
@@ -87,24 +92,67 @@ class BarangMasukController extends Controller
         return response()->json($response);
     }
 
+    public function getCust(Request $request)
+    {
+        $search = $request->search;
+
+        if ($search == '') {
+            $customer = Customer::orderby('nama_customer', 'asc')->select('id', 'nama_customer')->limit(5)->get();
+        } else {
+            $customer = Customer::orderby('nama_customer', 'asc')->select('id', 'nama_customer')
+                ->where('nama_customer', 'like', '%' . $search . '%')->limit(5)->get();
+        }
+
+        $response = array();
+        foreach ($customer as $customers) {
+            $response[] = array(
+                "id" => $customers->id,
+                "text" => $customers->nama_customer,
+            );
+        }
+        return response()->json($response);
+    }
+
+    public function getCustku(Request $request)
+    {
+        $search = $request->search;
+
+        if ($search == '') {
+            $customer = Customer::orderby('nama_customer', 'asc')->select('id', 'nama_customer')->limit(5)->get();
+        } else {
+            $customer = Customer::orderby('nama_customer', 'asc')->select('id', 'nama_customer')
+                ->where('nama_customer', 'like', '%' . $search . '%')->limit(5)->get();
+        }
+
+        $response = array();
+        foreach ($customer as $customers) {
+            $response[] = array(
+                "id" => $customers->id,
+                "text" => $customers->nama_customer,
+            );
+        }
+        return response()->json($response);
+    }
+
     public function insert_data(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'produkku' => 'required',
-            'jumlah_barang_masuk' => 'required',
+            'jumlah_barang_keluar' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         } else {
             $produk = Produk::where('id', $request->produkku)->select(['produks.*'])->first();
-            $barang_masuk = BarangMasuk::create([
+            $barang_masuk = BarangKeluar::create([
                 'id_produk' => $request->produkku,
-                'jumlah_barang_masuk' => $request->jumlah_barang_masuk,
-                'tanggal_masuk' => Carbon::now(),
+                'id_cust' => $request->cust,
+                'jumlah_barang_keluar' => $request->jumlah_barang_keluar,
+                'tanggal_keluar' => Carbon::now(),
             ]);
             $produk->update([
-                'stok' => $produk->stok + $request->jumlah_barang_masuk,
+                'stok' => $produk->stok - $request->jumlah_barang_keluar,
             ]);
             return response()->json(['success' => TRUE]);
         }
@@ -112,12 +160,12 @@ class BarangMasukController extends Controller
 
     public function destroy(Request $request)
     {
-        $barang_masuk = BarangMasuk::findOrFail(decrypt($request->id));
-        $produk = Produk::where('id', $barang_masuk->id_produk)->select(['produks.*'])->first();
+        $barang_keluar = BarangKeluar::findOrFail(decrypt($request->id));
+        $produk = Produk::where('id', $barang_keluar->id_produk)->select(['produks.*'])->first();
         $produk->update([
-            'stok' => $produk->stok - $barang_masuk->jumlah_barang_masuk,
+            'stok' => $produk->stok + $barang_keluar->jumlah_barang_keluar,
         ]);
-        $barang_masuk->delete();
+        $barang_keluar->delete();
         return response()->json(['success' => 'Barang Masuk deleted successfully.']);
     }
 }

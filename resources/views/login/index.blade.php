@@ -81,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  
                 <div class="col-xl-6 col-lg-12">
                     <div class="position-absolute top-0 h-100 d-xl-block d-none login-cover-img">
                         <div class="text-white p-5 w-100">
