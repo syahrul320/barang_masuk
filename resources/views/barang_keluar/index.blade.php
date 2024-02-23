@@ -77,12 +77,12 @@
                                 <option value=''>-- Pilih Produk --</option>
                             </select>
                         </div>
-                        <div class="col-sm-3">
+                        {{-- <div class="col-sm-3">
                             <label>Nama Customer</label>
-                            <select id='id_cust' class='form-control' name="id_cust">
-                                <option value=''>-- Pilih Customer --</option>
+                            <select id='custku' class='form-control' name="custku">
+                                <option value=''>-- Pilih Produk --</option>
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="col-sm-3">
                             <label>Range</label>
                             <div id="reportrange"

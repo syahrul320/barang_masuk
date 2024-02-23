@@ -21,8 +21,8 @@ class BarangKeluarController extends Controller
                 $data = $data->where('produks.id', $request->get('id_produk'));
             }
             
-            if ($request->get('id_cust') != "") {
-                $data = $data->where('customers.id', $request->get('id_cust'));
+            if ($request->get('custku') != "") {
+                $data = $data->where('customers.id', $request->get('custku'));
             }
 
             if ($request->get('start_date') != "") {
@@ -113,22 +113,22 @@ class BarangKeluarController extends Controller
         return response()->json($response);
     }
 
-    public function Customer(Request $request)
+    public function getCustku(Request $request)
     {
         $search = $request->search;
 
         if ($search == '') {
-            $user = Customer::orderby('nama_customer', 'asc')->select('id', 'nama_customer')->limit(5)->get();
+            $customer = Customer::orderby('nama_customer', 'asc')->select('id', 'nama_customer')->limit(5)->get();
         } else {
-            $user = Customer::orderby('nama_customer', 'asc')->select('id', 'nama_customer')
+            $customer = Customer::orderby('nama_customer', 'asc')->select('id', 'nama_customer')
                 ->where('nama_customer', 'like', '%' . $search . '%')->limit(5)->get();
         }
 
         $response = array();
-        foreach ($user as $users) {
+        foreach ($customer as $customers) {
             $response[] = array(
-                "id" => $users->id,
-                "text" => $users->nama_customer,
+                "id" => $customers->id,
+                "text" => $customers->nama_customer,
             );
         }
         return response()->json($response);

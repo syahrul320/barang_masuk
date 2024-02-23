@@ -65,10 +65,6 @@
                     <ion-icon name="pricetags-sharp"></ion-icon>Transaksi Barang Keluar
                     </a>
                 </li>
-                <li> <a href="{{ route('analisis') }}">
-                    <ion-icon name="pricetags-sharp"></ion-icon>Analisis Seles
-                    </a>
-                </li>
             </ul>
         </li>
     </ul>

@@ -23,7 +23,6 @@ $(document).ready(function () {
                     (d.start_date = start_date),
                     (d.end_date = end_date),
                     (d.id_produk = $("#id_produk option:selected").val());
-                    (d.id_cust = $("#id_cust option:selected").val());
             },
         },
         columns: [
@@ -95,13 +94,13 @@ $(document).ready(function () {
         });
     });
 
-    $("#id_cust").on("change", function () {
-        $("#id_cust").val();
+    $("#id_produk").on("change", function () {
+        $("#id_produk").val();
         table.draw();
     });
 
-    $("#id_produk").on("change", function () {
-        $("#id_produk").val();
+    $("#custku").on("change", function () {
+        $("#custku").val();
         table.draw();
     });
 
@@ -145,9 +144,9 @@ $(document).ready(function () {
         },
     });
 
-    $("#id_cust").select2({
+    $("#cust").select2({
         ajax: {
-            url: url + "/custku-user-card-select",
+            url: url + "/cust-user-card-select",
             type: "post",
             dataType: "json",
             delay: 250,
@@ -164,10 +163,10 @@ $(document).ready(function () {
             cache: true,
         },
     });
-
-    $("#cust").select2({
+    
+    $("#custku").select2({
         ajax: {
-            url: url + "/cust-user-card-select",
+            url: url + "/custku-user-card-select",
             type: "post",
             dataType: "json",
             delay: 250,

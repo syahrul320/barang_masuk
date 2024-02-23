@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BlankPage;
@@ -80,13 +79,4 @@ Route::post('/barang_keluar-delete-data', [BarangKeluarController::class, 'destr
 Route::post('/barang_keluarku-user-card-select', [BarangKeluarController::class, 'getUserCard'])->name('barang_keluarku.usercard.select')->middleware(['cekrole:admin']);
 Route::post('/barang_keluar-user-card-select', [BarangKeluarController::class, 'getProduk'])->name('barang_keluar.usercard.select')->middleware(['cekrole:admin']);
 Route::post('/cust-user-card-select', [BarangKeluarController::class, 'getCust'])->name('cust.usercard.select')->middleware(['cekrole:admin']);
-Route::post('/custku-user-card-select', [BarangKeluarController::class, 'Customer'])->name('custku.usercard.select')->middleware(['cekrole:admin']);
-
-// Data Analisis
-Route::get('/analisis', [AnalisisController::class, 'index'])->name('analisis')->middleware(['cekrole:admin']);
-Route::post('/analisis-insert-data', [AnalisisController::class, 'insert_data'])->name('analisis.insert.data')->middleware(['cekrole:admin']);
-Route::post('/analisis-delete-data', [AnalisisController::class, 'destroy'])->name('analisis.delete.data')->middleware(['cekrole:admin']);
-Route::post('/analisisku-user-card-select', [AnalisisController::class, 'getUserCard'])->name('analisisku.usercard.select')->middleware(['cekrole:admin']);
-Route::post('/analisis-user-card-select', [AnalisisController::class, 'getProduk'])->name('analisis.usercard.select')->middleware(['cekrole:admin']);
-Route::post('/cust-user-card-select', [AnalisisController::class, 'getCust'])->name('cust.usercard.select')->middleware(['cekrole:admin']);
-Route::post('/custku-user-card-select', [AnalisisController::class, 'Customer'])->name('custku.usercard.select')->middleware(['cekrole:admin']);
+Route::post('/custku-user-card-select', [BarangKeluarController::class, 'getCustku'])->name('custku.usercard.select')->middleware(['cekrole:admin']);
