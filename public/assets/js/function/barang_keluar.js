@@ -23,6 +23,7 @@ $(document).ready(function () {
                     (d.start_date = start_date),
                     (d.end_date = end_date),
                     (d.id_produk = $("#id_produk option:selected").val());
+                    (d.custku = $("#custku option:selected").val());
             },
         },
         columns: [
@@ -38,6 +39,27 @@ $(document).ready(function () {
                 sClass: "text-center",
             },
         ],
+        
+        dom: 'Bfrtip',
+        buttons: [
+            "copyHtml5",
+            {
+                extend: "csvHtml5",
+                title: "Data Barang Keluar",
+            },
+            {
+                extend: "excelHtml5",
+                title: "Data Barang Keluar",
+            },
+            {
+                extend: "pdfHtml5",
+                title: "Data Barang Keluar",
+            },
+            {
+                extend: "print",
+                title: "Data Barang Keluar",
+            },
+        ]
         
     });
 
