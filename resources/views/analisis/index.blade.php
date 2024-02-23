@@ -103,15 +103,13 @@
                         <thead>
                             <tr>
                                 <th>Nama Barang</th>
-                                <th>Nama Customer</th>
-                                <th>Jumlah Barang</th>
-                                <th>Created at</th>
-                                <th>Action</th>
+                                <th>Satuan</th>
+                                <th>QTY Penjualan</th>
+                                <th>Estimasi Penjualan</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -130,7 +128,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('assets/js/function/barang_keluar.js') }}"></script>
+    <script src="{{ asset('assets/js/function/analisis.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/js/form-select2.js') }}"></script>
 @endpush

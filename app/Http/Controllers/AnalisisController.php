@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Validator;
 
-class BarangKeluarController extends Controller
+class AnalisisController extends Controller
 {
     public function index(Request $request)
     {
@@ -20,7 +20,7 @@ class BarangKeluarController extends Controller
             if ($request->get('id_produk') != "") {
                 $data = $data->where('produks.id', $request->get('id_produk'));
             }
-            
+
             if ($request->get('id_cust') != "") {
                 $data = $data->where('customers.id', $request->get('id_cust'));
             }
@@ -32,22 +32,14 @@ class BarangKeluarController extends Controller
                 $data =  $data->whereDate('tanggal_keluar', '>=', $from)
                     ->whereDate('tanggal_keluar', '<=', $to);
             }
-            return DataTables::of($data->select(['produks.nama_barang', 'customers.nama_customer', 'barang_keluars.*'])->latest())->addColumn('actions', function ($row) {
-                $button = '&nbsp;&nbsp;';
-                $button .= '<a href="javascript:void(0)" onclick= destroy("' . encrypt($row->id) . '") ><span class="badge bg-warning"> Delete</span></a>';
-
-                return $button;
+            return DataTables::of($data->select(['produks.nama_barang', 'produks.satuan', 'produks.stok', 'customers.nama_customer', 'barang_keluars.*'])->latest())->addColumn('actions', function ($row) {
             })
                 ->addIndexColumn()
-                ->editColumn('created_at', function ($row) {
-                    $formatedDate = Carbon::createFromFormat('Y-m-d H:i:s', $row->created_at)->format('d-m-Y H:i:s');
-                    return $formatedDate;
-                })
                 ->removeColumn('id')
                 ->rawColumns(['actions'])
                 ->make(true);
         }
-        return view('barang_keluar.index');
+        return view('analisis.index');
     }
 
     public function getUserCard(Request $request)

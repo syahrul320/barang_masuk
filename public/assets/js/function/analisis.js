@@ -1,6 +1,10 @@
 var table;
 var start_date;
 var end_date;
+var tanggalSekarang = new Date();
+var tanggal = tanggalSekarang.getDate();
+var bulan = tanggalSekarang.getMonth() + 1; // Perlu ditambah 1 karena indeks bulan dimulai dari 0
+var tahun = tanggalSekarang.getFullYear();
 $(document).ready(function () {
     $("#card-form").hide();
     $.ajaxSetup({
@@ -11,7 +15,7 @@ $(document).ready(function () {
 
     table = $("#dt_tbl").DataTable({
         processing: true,
-        scrollY: "68vh",
+        scrollY: "40vh",
         bFilter: false,
         scrollX: true,
         serverSide: true,
@@ -20,26 +24,28 @@ $(document).ready(function () {
         ajax: {
             url: window.location,
             data: function (d) {
-                    (d.start_date = start_date),
+                (d.start_date = start_date),
                     (d.end_date = end_date),
                     (d.id_produk = $("#id_produk option:selected").val());
-                    (d.id_cust = $("#id_cust option:selected").val());
+                d.id_cust = $("#id_cust option:selected").val();
             },
         },
         columns: [
             { data: "nama_barang", name: "nama_barang" },
+            { data: "satuan", name: "satuan" },
+            { data: "stok", name: "stok" },
             { data: "nama_customer", name: "nama_customer" },
-            { data: "jumlah_barang_keluar", name: "jumlah_barang_keluar" },
-            { data: "created_at", name: "created_at" },
-            {
-                data: "actions",
-                name: "actions",
-                orderable: false,
-                serachable: false,
-                sClass: "text-center",
-            },
         ],
-        
+
+        dom: 'T<"clear">lfrtip<"bottom"B>',
+        buttons: [
+            "copyHtml5",
+            {
+                extend: "excelHtml5",
+                title: "Data Analisis Export "+ tanggal + "-" + bulan + "-" + tahun,
+            },
+            "csvHtml5",
+        ],
     });
 
     $("#form").submit(function (e) {
@@ -50,11 +56,11 @@ $(document).ready(function () {
         if ($("#id").val() != "") {
             text = "Update";
             action = "Update";
-            urlSubmit = url + "/barang_keluar-update-data";
+            urlSubmit = url + "/analisis-update-data";
         } else {
             text = "Simpan";
             action = "Simpan";
-            urlSubmit = url + "/barang_keluar-insert-data";
+            urlSubmit = url + "/analisis-insert-data";
         }
         var formData = new FormData($("#form")[0]);
         $.ajax({
@@ -74,7 +80,9 @@ $(document).ready(function () {
                         $("#id_produkError").html(data.errors.id_produk[0]);
                     }
                     if (data.errors.jumlah_barang_masuk) {
-                        $("#jumlah_barang_masukError").html(data.errors.jumlah_barang_masuk[0]);
+                        $("#jumlah_barang_masukError").html(
+                            data.errors.jumlah_barang_masuk[0]
+                        );
                     }
                 }
 
@@ -107,7 +115,7 @@ $(document).ready(function () {
 
     $("#id_produk").select2({
         ajax: {
-            url: url + "/barang_keluarku-user-card-select",
+            url: url + "/analisisku-user-card-select",
             type: "post",
             dataType: "json",
             delay: 250,
@@ -127,7 +135,7 @@ $(document).ready(function () {
 
     $("#produkku").select2({
         ajax: {
-            url: url + "/barang_keluar-user-card-select",
+            url: url + "/analisis-user-card-select",
             type: "post",
             dataType: "json",
             delay: 250,
@@ -255,7 +263,7 @@ function destroy(id) {
         if (willDelete) {
             $.ajax({
                 type: "DELETE",
-                url: url + "/barang_keluar-delete-data",
+                url: url + "/analisis-delete-data",
                 data: { id: id },
                 method: "POST",
                 success: function (data) {
