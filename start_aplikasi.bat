@@ -1,4 +1,4 @@
 @echo off
-cd c:\laragon\www\barang_masuk
+cd c:\xampp\htdocs\barang_masuk
 php artisan serve
 PAUSE
