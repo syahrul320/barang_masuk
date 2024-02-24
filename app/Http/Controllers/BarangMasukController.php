@@ -101,7 +101,7 @@ class BarangMasukController extends Controller
             $barang_masuk = BarangMasuk::create([
                 'id_produk' => $request->produkku,
                 'jumlah_barang_masuk' => $request->jumlah_barang_masuk,
-                'tanggal_masuk' => Carbon::now(),
+                'tanggal_masuk' => $request->tanggal_masuk,
             ]);
             $produk->update([
                 'stok' => $produk->stok + $request->jumlah_barang_masuk,

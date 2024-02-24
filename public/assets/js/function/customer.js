@@ -10,7 +10,8 @@ $(document).ready(function () {
     table = $("#dt_tbl").DataTable({
         processing: true,
         scrollX: true,
-        scrollY: "68vh",
+        scrollY: "60vh",
+        bFilter: false,
         serverSide: true,
         orderCellsTop: true,
         ajax: url + "/customer/",
@@ -24,6 +25,8 @@ $(document).ready(function () {
             },
             { data: "nama_customer", name: "nama_customer" },
             { data: "alamat", name: "alamat" },
+            { data: "no_hp", name: "no_hp" },
+            { data: "pic", name: "pic" },
             {
                 data: "actions",
                 name: "actions",
@@ -32,9 +35,18 @@ $(document).ready(function () {
                 sClass: "text-center",
             },
         ],
+
+        dom : 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ],
+
         initComplete: function () {
             this.api()
-                .columns([1, 2])
+                .columns([1, 2, 3, 4])
                 .every(function () {
                     var column = this;
                     var input = document.createElement("input");
@@ -89,6 +101,8 @@ $(document).ready(function () {
                 $("#submit").attr("disabled", false);
                 $("#nama_customerError").html("");
                 $("#alamatError").html("");
+                $("#no_hpError").html("");
+                $("#picError").html("");
                 if (data.errors) {
                     $("#submit").html(action);
                     if (data.errors.nama_customer) {
@@ -96,6 +110,12 @@ $(document).ready(function () {
                     }
                     if (data.errors.alamat) {
                         $("#alamatError").html(data.errors.alamat[0]);
+                    }
+                    if (data.errors.no_hp) {
+                        $("#no_hpError").html(data.errors.no_hp[0]);
+                    }
+                    if (data.errors.pic) {
+                        $("#picError").html(data.errors.pic[0]);
                     }
                 }
 
@@ -157,6 +177,8 @@ function edit(id) {
             $("#id").val(data.data.id);
             $("#nama_customer").val(data.data.nama_customer);
             $("#alamat").val(data.data.alamat);
+            $("#no_hp").val(data.data.no_hp);
+            $("#pic").val(data.data.pic);
             $("#submit").html("Update");
             $("#card-form").show(1000);
         },

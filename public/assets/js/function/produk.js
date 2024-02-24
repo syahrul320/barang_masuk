@@ -10,7 +10,8 @@ $(document).ready(function () {
     table = $("#dt_tbl").DataTable({
         processing: true,
         scrollX: true,
-        scrollY: "68vh",
+        scrollY: "60vh",
+        bFilter: false,
         serverSide: true,
         orderCellsTop: true,
         ajax: url + "/produk/",
@@ -33,6 +34,15 @@ $(document).ready(function () {
                 sClass: "text-center",
             },
         ],
+
+        dom : 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ],
+
         initComplete: function () {
             this.api()
                 .columns([1, 2, 3])

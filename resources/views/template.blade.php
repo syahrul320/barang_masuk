@@ -40,7 +40,7 @@
     <script>
         var url = window.location.origin;
     </script>
-    <title>Stok Barang</title>
+    <title>Paletaswey</title>
 </head>
 
 <body>

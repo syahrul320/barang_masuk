@@ -19,7 +19,7 @@
     <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-    <title>Stok Barang</title>
+    <title>Paletaswey</title>
 </head>
 
 <body class="bg-white">

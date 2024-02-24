@@ -28,6 +28,7 @@ $(document).ready(function () {
         columns: [
             { data: "nama_barang", name: "nama_barang" },
             { data: "jumlah_barang_masuk", name: "jumlah_barang_masuk" },
+            { data: "tanggal_masuk", name: "tanggal_masuk" },
             { data: "created_at", name: "created_at" },
             {
                 data: "actions",
@@ -36,6 +37,14 @@ $(document).ready(function () {
                 serachable: false,
                 sClass: "text-center",
             },
+        ],
+
+        dom : 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
         ],
         
     });
@@ -153,7 +162,7 @@ $(document).ready(function () {
 });
 
 $(function () {
-    var start = moment().subtract(29, "days");
+    var start = moment().subtract(63, "days");
     var end = moment();
 
     function cb(start, end) {

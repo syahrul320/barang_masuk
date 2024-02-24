@@ -54,6 +54,13 @@
                             <span class="text-danger" id="jumlah_barang_keluarError"></span>
                         </div>
                     </div>
+                    <div class="card-body col-sm-12">
+                        <div class="form-group has-feedback">
+                            <b><label>Tanggal</label></b>
+                            <input type="date" id="tanggal_keluar" class="form-control" name="tanggal_keluar">
+                            <span class="text-danger" id="tanggal_keluarError"></span>
+                        </div>
+                    </div>
                     <div class="card-footer text-center col-sm-12">
                         <button class="btn btn-primary" id="submit">
                             Simpan
@@ -80,7 +87,7 @@
                         <div class="col-sm-3">
                             <label>Nama Customer</label>
                             <select id='custku' class='form-control' name="custku">
-                                <option value=''>-- Pilih Produk --</option>
+                                <option value=''>-- Pilih Customer --</option>
                             </select>
                         </div>
                         <div class="col-sm-3">
@@ -105,12 +112,14 @@
                                 <th>Nama Barang</th>
                                 <th>Nama Customer</th>
                                 <th>Jumlah Barang</th>
+                                <th>Tanggal</th>
                                 <th>Created at</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

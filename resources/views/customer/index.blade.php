@@ -44,6 +44,20 @@ Stok Barang >> Data Customer
                         <span class="text-danger" id="alamatError"></span>
                     </div>
                 </div>
+                <div class="card-body col-sm-12">
+                    <div class="form-group has-feedback">
+                        <b><label>No HP</label></b>
+                        <input type="text" id="no_hp" class="form-control" placeholder="No HP" name="no_hp">
+                        <span class="text-danger" id="no_hpError"></span>
+                    </div>
+                </div>
+                <div class="card-body col-sm-12">
+                    <div class="form-group has-feedback">
+                        <b><label>PIC</label></b>
+                        <input type="text" id="pic" class="form-control" placeholder="PIC" name="pic">
+                        <span class="text-danger" id="picError"></span>
+                    </div>
+                </div>
                 <div class="card-footer text-center col-sm-12">
                     <button class="btn btn-primary" id="submit">
                         Simpan
@@ -72,11 +86,15 @@ Stok Barang >> Data Customer
                             <th>No</th>
                             <th>Nama Customer</th>
                             <th>Alamat</th>
+                            <th>NO HP</th>
+                            <th>PIC</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>

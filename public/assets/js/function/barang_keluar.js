@@ -30,6 +30,7 @@ $(document).ready(function () {
             { data: "nama_barang", name: "nama_barang" },
             { data: "nama_customer", name: "nama_customer" },
             { data: "jumlah_barang_keluar", name: "jumlah_barang_keluar" },
+            { data: "tanggal_keluar", name: "tanggal_keluar" },
             { data: "created_at", name: "created_at" },
             {
                 data: "actions",
@@ -40,26 +41,13 @@ $(document).ready(function () {
             },
         ],
         
-        dom: 'Bfrtip',
+        dom : 'Bfrtip',
         buttons: [
-            "copyHtml5",
-            {
-                extend: "csvHtml5",
-                title: "Data Barang Keluar",
-            },
-            {
-                extend: "excelHtml5",
-                title: "Data Barang Keluar",
-            },
-            {
-                extend: "pdfHtml5",
-                title: "Data Barang Keluar",
-            },
-            {
-                extend: "print",
-                title: "Data Barang Keluar",
-            },
-        ]
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ],
         
     });
 
@@ -221,7 +209,7 @@ $(document).ready(function () {
 });
 
 $(function () {
-    var start = moment().subtract(29, "days");
+    var start = moment().subtract(63, "days");
     var end = moment();
 
     function cb(start, end) {

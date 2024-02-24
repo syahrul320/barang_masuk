@@ -8,7 +8,7 @@
         </div>
         <div>
             <a href="{{ route('dashboard') }}" style="text-decoration: none">
-                <h4 class="logo-text">STOK</h4>
+                <h4 class="logo-text">Paletaswey</h4>
             </a>
         </div>
         <div class="toggle-icon ms-auto">
@@ -39,11 +39,11 @@
                     </a>
                 </li> --}}
                 <li> <a href="{{ route('produk') }}">
-                    <ion-icon name="storefront-sharp"></ion-icon>Data Produk
+                    <ion-icon name="storefront-sharp"></ion-icon>DATA WH Lombok
                     </a>
                 </li>
                 <li> <a href="{{ route('customer') }}">
-                    <ion-icon name="storefront-sharp"></ion-icon>Data Customer
+                    <ion-icon name="storefront-sharp"></ion-icon>DATA POS
                     </a>
                 </li>
             </ul>
@@ -58,11 +58,11 @@
             </a>
             <ul>
                 <li> <a href="{{ route('barang_masuk') }}">
-                    <ion-icon name="pricetags-sharp"></ion-icon>Transaksi Barang Masuk
+                    <ion-icon name="pricetags-sharp"></ion-icon>RESTOK IN
                     </a>
                 </li>
                 <li> <a href="{{ route('barang_keluar') }}">
-                    <ion-icon name="pricetags-sharp"></ion-icon>Transaksi Barang Keluar
+                    <ion-icon name="pricetags-sharp"></ion-icon>RESTOK OUT
                     </a>
                 </li>
             </ul>

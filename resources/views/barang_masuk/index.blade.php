@@ -47,6 +47,13 @@
                             <span class="text-danger" id="jumlah_barang_masukError"></span>
                         </div>
                     </div>
+                    <div class="card-body col-sm-12">
+                        <div class="form-group has-feedback">
+                            <b><label>Tanggal</label></b>
+                            <input type="date" id="tanggal_masuk" class="form-control" name="tanggal_masuk">
+                            <span class="text-danger" id="tanggal_masukError"></span>
+                        </div>
+                    </div>
                     <div class="card-footer text-center col-sm-12">
                         <button class="btn btn-primary" id="submit">
                             Simpan
@@ -91,12 +98,14 @@
                             <tr>
                                 <th>Nama Barang</th>
                                 <th>Jumlah Barang</th>
+                                <th>Tanggal</th>
                                 <th>Created at</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

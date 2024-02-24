@@ -17,6 +17,8 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('nama_customer');
             $table->String('alamat');
+            $table->String('no_hp');
+            $table->String('pic');
             $table->timestamps();
         });
     }

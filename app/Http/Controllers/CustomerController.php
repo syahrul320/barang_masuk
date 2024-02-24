@@ -37,6 +37,8 @@ class CustomerController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_customer' => 'required',
             'alamat' => 'required',
+            'no_hp' => 'required',
+            'pic' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -45,6 +47,8 @@ class CustomerController extends Controller
             $customer = Customer::create([
                 'nama_customer' => $request->nama_customer,
                 'alamat' => $request->alamat,
+                'no_hp' => $request->no_hp,
+                'pic' => $request->pic,
             ]);
             return response()->json(['success' => TRUE]);
         }
@@ -62,6 +66,8 @@ class CustomerController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_customer' => 'required',
             'alamat' => 'required',
+            'no_hp' => 'required',
+            'pic' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
@@ -69,6 +75,8 @@ class CustomerController extends Controller
             $customer->update([
                 'nama_customer' => $request->nama_customer,
                 'alamat' => $request->alamat,
+                'no_hp' => $request->no_hp,
+                'pic' => $request->pic,
             ]);
         }
         return response()->json(['success' => TRUE]);

@@ -149,7 +149,7 @@ class BarangKeluarController extends Controller
                 'id_produk' => $request->produkku,
                 'id_cust' => $request->cust,
                 'jumlah_barang_keluar' => $request->jumlah_barang_keluar,
-                'tanggal_keluar' => Carbon::now(),
+                'tanggal_keluar' => $request->tanggal_keluar,
             ]);
             $produk->update([
                 'stok' => $produk->stok - $request->jumlah_barang_keluar,

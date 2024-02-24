@@ -11,5 +11,7 @@ class Customer extends Model
     protected $fillable = [
         'nama_customer',
         'alamat',
+        'no_hp',
+        'pic',
     ];
 }
