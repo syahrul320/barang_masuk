@@ -42,6 +42,14 @@
                     <ion-icon name="storefront-sharp"></ion-icon>DATA WH Lombok
                     </a>
                 </li>
+                <li> <a href="{{ route('kategori') }}">
+                    <ion-icon name="storefront-sharp"></ion-icon>DATA Kategori
+                    </a>
+                </li>
+                <li> <a href="{{ route('rasa') }}">
+                    <ion-icon name="storefront-sharp"></ion-icon>DATA Rasa
+                    </a>
+                </li>
                 <li> <a href="{{ route('customer') }}">
                     <ion-icon name="storefront-sharp"></ion-icon>DATA POS
                     </a>

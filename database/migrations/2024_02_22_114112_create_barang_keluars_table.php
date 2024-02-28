@@ -19,6 +19,8 @@ class CreateBarangKeluarsTable extends Migration
             $table->date('tanggal_keluar');
             $table->foreignId('id_cust')->references('id')->on('customers')->onDelete('cascade');
             $table->foreignId('id_produk')->references('id')->on('produks')->onDelete('cascade');
+            $table->foreignId('id_kategori')->references('id')->on('kategoris')->onDelete('cascade');
+            $table->foreignId('id_rasa')->references('id')->on('rasas')->onDelete('cascade');
             $table->timestamps();
         });
     }

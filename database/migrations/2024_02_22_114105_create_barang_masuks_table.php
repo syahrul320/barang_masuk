@@ -18,6 +18,8 @@ class CreateBarangMasuksTable extends Migration
             $table->integer('jumlah_barang_masuk');
             $table->date('tanggal_masuk');
             $table->foreignId('id_produk')->references('id')->on('produks')->onDelete('cascade');
+            $table->foreignId('id_kategori')->references('id')->on('kategoris')->onDelete('cascade')->nullable();
+            $table->foreignId('id_rasa')->references('id')->on('rasas')->onDelete('cascade')->nullable();
             $table->timestamps();
         });
     }

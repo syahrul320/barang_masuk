@@ -97,6 +97,8 @@
                         <thead>
                             <tr>
                                 <th>Nama Barang</th>
+                                <th>Nama Kategori</th>
+                                <th>Rasa</th>
                                 <th>Jumlah Barang</th>
                                 <th>Tanggal</th>
                                 <th>Created at</th>
@@ -105,6 +107,8 @@
                         </thead>
                         <tfoot>
                             <tr>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>

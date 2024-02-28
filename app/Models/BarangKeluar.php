@@ -13,5 +13,7 @@ class BarangKeluar extends Model
         'tanggal_keluar',
         'id_produk',
         'id_cust',
+        'id_kategori',
+        'id_rasa',
     ];
 }

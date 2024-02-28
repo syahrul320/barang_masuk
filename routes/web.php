@@ -5,8 +5,10 @@ use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BlankPage;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\RasaController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +59,22 @@ Route::post('/produk-insert-data', [ProdukController::class, 'insert_data'])->na
 Route::post('/produk-edit-data', [ProdukController::class, 'edit'])->name('produk.edit.data')->middleware(['cekrole:admin']);
 Route::post('/produk-update-data', [ProdukController::class, 'update'])->name('produk.update.data')->middleware(['cekrole:admin']);
 Route::post('/produk-delete-data', [ProdukController::class, 'destroy'])->name('produk.delete.data')->middleware(['cekrole:admin']);
+Route::post('/kategori-user-card-select', [ProdukController::class, 'getKategori'])->name('kategori.usercard.select')->middleware(['cekrole:admin']);
+Route::post('/rasa-user-card-select', [ProdukController::class, 'getRasa'])->name('rasa.usercard.select')->middleware(['cekrole:admin']);
+
+// Data Kategori
+Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori')->middleware(['cekrole:admin']);
+Route::post('/kategori-insert-data', [KategoriController::class, 'insert_data'])->name('kategori.insert.data')->middleware(['cekrole:admin']);
+Route::post('/kategori-edit-data', [KategoriController::class, 'edit'])->name('kategori.edit.data')->middleware(['cekrole:admin']);
+Route::post('/kategori-update-data', [KategoriController::class, 'update'])->name('kategori.update.data')->middleware(['cekrole:admin']);
+Route::post('/kategori-delete-data', [KategoriController::class, 'destroy'])->name('kategori.delete.data')->middleware(['cekrole:admin']);
+
+// Data Rasa
+Route::get('/rasa', [RasaController::class, 'index'])->name('rasa')->middleware(['cekrole:admin']);
+Route::post('/rasa-insert-data', [RasaController::class, 'insert_data'])->name('rasa.insert.data')->middleware(['cekrole:admin']);
+Route::post('/rasa-edit-data', [RasaController::class, 'edit'])->name('rasa.edit.data')->middleware(['cekrole:admin']);
+Route::post('/rasa-update-data', [RasaController::class, 'update'])->name('rasa.update.data')->middleware(['cekrole:admin']);
+Route::post('/rasa-delete-data', [RasaController::class, 'destroy'])->name('rasa.delete.data')->middleware(['cekrole:admin']);
 
 // Data Customer
 Route::get('/customer', [CustomerController::class, 'index'])->name('customer')->middleware(['cekrole:admin']);

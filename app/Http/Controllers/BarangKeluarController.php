@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\BarangKeluar;
 use App\Models\Customer;
+use App\Models\Kategori;
 use App\Models\Produk;
+use App\Models\Rasa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -15,12 +17,15 @@ class BarangKeluarController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = BarangKeluar::join('produks', 'barang_keluars.id_produk', 'produks.id')->join('customers', 'barang_keluars.id_cust', 'customers.id');
+            $data = BarangKeluar::join('produks', 'barang_keluars.id_produk', 'produks.id')
+                ->join('kategoris', 'barang_keluars.id_kategori', 'kategoris.id')
+                ->join('rasas', 'barang_keluars.id_rasa', 'rasas.id')
+                ->join('customers', 'barang_keluars.id_cust', 'customers.id');
 
             if ($request->get('id_produk') != "") {
                 $data = $data->where('produks.id', $request->get('id_produk'));
             }
-            
+
             if ($request->get('custku') != "") {
                 $data = $data->where('customers.id', $request->get('custku'));
             }
@@ -32,7 +37,7 @@ class BarangKeluarController extends Controller
                 $data =  $data->whereDate('tanggal_keluar', '>=', $from)
                     ->whereDate('tanggal_keluar', '<=', $to);
             }
-            return DataTables::of($data->select(['produks.nama_barang', 'customers.nama_customer', 'barang_keluars.*'])->latest())->addColumn('actions', function ($row) {
+            return DataTables::of($data->select(['produks.nama_barang', 'customers.nama_customer', 'barang_keluars.*', 'rasas.rasa', 'kategoris.nama_kategori'])->latest())->addColumn('actions', function ($row) {
                 $button = '&nbsp;&nbsp;';
                 $button .= '<a href="javascript:void(0)" onclick= destroy("' . encrypt($row->id) . '") ><span class="badge bg-warning"> Delete</span></a>';
 
@@ -145,11 +150,17 @@ class BarangKeluarController extends Controller
             return response()->json(['errors' => $validator->errors()]);
         } else {
             $produk = Produk::where('id', $request->produkku)->select(['produks.*'])->first();
-            $barang_masuk = BarangKeluar::create([
+            $barang_keluar = BarangKeluar::create([
                 'id_produk' => $request->produkku,
                 'id_cust' => $request->cust,
                 'jumlah_barang_keluar' => $request->jumlah_barang_keluar,
                 'tanggal_keluar' => $request->tanggal_keluar,
+            ]);
+            $kategori = Kategori::where('id', $produk->id_kategori)->select(['kategoris.*'])->first();
+            $rasa = Rasa::where('id', $produk->id_rasa)->select(['rasas.*'])->first();
+            $barang_keluar->update([
+                'id_kategori' => $kategori->id,
+                'id_rasa' => $rasa->id,
             ]);
             $produk->update([
                 'stok' => $produk->stok - $request->jumlah_barang_keluar,

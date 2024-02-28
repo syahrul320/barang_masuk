@@ -29,6 +29,8 @@ $(document).ready(function () {
         columns: [
             { data: "nama_barang", name: "nama_barang" },
             { data: "nama_customer", name: "nama_customer" },
+            { data: "nama_kategori", name: "nama_kategori" },
+            { data: "rasa", name: "rasa" },
             { data: "jumlah_barang_keluar", name: "jumlah_barang_keluar" },
             { data: "tanggal_keluar", name: "tanggal_keluar" },
             { data: "created_at", name: "created_at" },

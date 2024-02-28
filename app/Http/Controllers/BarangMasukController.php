@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangMasuk;
+use App\Models\Kategori;
 use App\Models\Produk;
+use App\Models\Rasa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -14,7 +16,9 @@ class BarangMasukController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = BarangMasuk::join('produks', 'barang_masuks.id_produk', 'produks.id');
+            $data = BarangMasuk::join('produks', 'barang_masuks.id_produk', 'produks.id')
+                ->join('rasas', 'barang_masuks.id_rasa', 'rasas.id')
+                ->join('kategoris', 'barang_masuks.id_kategori', 'kategoris.id');
 
             if ($request->get('id_produk') != "") {
                 $data = $data->where('produks.id', $request->get('id_produk'));
@@ -27,7 +31,7 @@ class BarangMasukController extends Controller
                 $data =  $data->whereDate('tanggal_masuk', '>=', $from)
                     ->whereDate('tanggal_masuk', '<=', $to);
             }
-            return DataTables::of($data->select(['produks.nama_barang', 'barang_masuks.*'])->latest())->addColumn('actions', function ($row) {
+            return DataTables::of($data->select(['produks.nama_barang', 'barang_masuks.*', 'kategoris.nama_kategori', 'rasas.rasa'])->latest())->addColumn('actions', function ($row) {
                 $button = '&nbsp;&nbsp;';
                 $button .= '<a href="javascript:void(0)" onclick= destroy("' . encrypt($row->id) . '") ><span class="badge bg-warning"> Delete</span></a>';
 
@@ -102,6 +106,12 @@ class BarangMasukController extends Controller
                 'id_produk' => $request->produkku,
                 'jumlah_barang_masuk' => $request->jumlah_barang_masuk,
                 'tanggal_masuk' => $request->tanggal_masuk,
+            ]);
+            $kategori = Kategori::where('id', $produk->id_kategori)->select(['kategoris.*'])->first();
+            $rasa = Rasa::where('id', $produk->id_rasa)->select(['rasas.*'])->first();
+            $barang_masuk->update([
+                'id_kategori' => $kategori->id,
+                'id_rasa' => $rasa->id,
             ]);
             $produk->update([
                 'stok' => $produk->stok + $request->jumlah_barang_masuk,
